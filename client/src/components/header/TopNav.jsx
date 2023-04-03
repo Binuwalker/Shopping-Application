@@ -13,7 +13,7 @@ const TopNav = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    let userValue = localStorage.getItem('userKey');
+    let userValue = localStorage.getItem('userKey') || [];
 
     const handleLogout = (e) => {
         e.preventDefault()
@@ -23,6 +23,7 @@ const TopNav = () => {
         if (emailSuccess && passwordSuccess) {
             userValue = JSON.parse(userValue);
         }
+        window.location.reload();
     }
 
     return (
@@ -33,7 +34,7 @@ const TopNav = () => {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ms-auto">
-                            {(emailSuccess && passwordSuccess) || userValue ? (<Link onClick={handleLogout} className='nav-link navLink'>Logout</Link>)
+                            {(emailSuccess && passwordSuccess) || userValue.length > 0 ? (<Link onClick={handleLogout} className='nav-link navLink'>Logout</Link>)
                                 : (<Link to='/' className='nav-link navLink'>Login</Link>)}
                             <Link to='/cart' className='nav-link navLink'>Cart({cartCount.length ? cartCount.length : 0})</Link>
                         </Nav>

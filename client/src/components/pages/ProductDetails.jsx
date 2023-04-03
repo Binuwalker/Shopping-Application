@@ -17,14 +17,15 @@ const ProductDetails = () => {
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(cartItems));
     }, [cartItems]);
 
-    const handleAddToCart = (id, productName, price, img) => {
-        if (JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) === null || undefined) {
-            setCartItems([{ id, productName, price, img }]);
-            window.location.reload();
+    const handleAddToCart = (id, productName, price, img, quantity='1') => {
+        const existingItem = cartItems.find(item => item.id === id)
+        if (existingItem) {
+            existingItem.quantity += parseInt(quantity);
+            setCartItems([...cartItems]);
         } else {
-            setCartItems([...cartItems, { id, productName, price, img }]);
-            window.location.reload();
+            setCartItems([...cartItems, { id, productName, price, img, quantity: parseInt(quantity) }]);
         }
+        window.location.reload();
     };
 
     useEffect(() => {
@@ -53,8 +54,8 @@ const ProductDetails = () => {
                                 <div className='productDetail-id'>{product.id}</div>
                                 <div className='productDetail-name'>{product.productName}</div>
                                 <div className='productDetail-detail'>{product.detail}</div>
-                                <div className='productDetail-price'>{product.price}</div>
-                                <button className='productDetail-addToCart-btn' onClick={() => handleAddToCart(product.id, product.productName, product.price, product.img)}>Add To Cart</button>
+                                <div className='productDetail-price'>${product.price}</div>
+                                <button className='productDetail-addToCart-btn' onClick={() => handleAddToCart(product.id, product.productName, product.price, product.img, product.quantity)}>Add To Cart</button>
                                 <button className='productDetail-buyNow-btn'>Buy Now</button>
                             </div>
                         </div>

@@ -20,13 +20,17 @@ const Home = () => {
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(cartItems));
     }, [cartItems]);
 
-    const handleAddToCart = (id, productName, price, img) => {
-        if (JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY)) === null || undefined) {
-            setCartItems([{ id, productName, price, img }]);
+    const handleAddToCart = (id, productName, price, img, quantity='1') => {
+        const existingItem = cartItems.find(item => item.id === id)
+        if (existingItem) {
+            existingItem.quantity += parseInt(quantity);
+            setCartItems([...cartItems]);
         } else {
-            setCartItems([...cartItems, { id, productName, price, img }]);
+            setCartItems([...cartItems, { id, productName, price, img, quantity: parseInt(quantity) }]);
         }
+        window.location.reload();
     };
+
 
     useEffect(() => {
         const asyncFunc = async () => {
@@ -46,7 +50,7 @@ const Home = () => {
                             <div className='container'>
                                 <div className='product-img-container' onClick={() => handleProduct(product.id)}><img className='product-img' src={product.img} alt={product.productName} /></div>
                                 <div className='product-name'>{product.productName}</div>
-                                <div className='product-price'>{product.price}</div>
+                                <div className='product-price'>${product.price}</div>
                                 <button className='addToCart-btn' onClick={() => handleAddToCart(product.id, product.productName, product.price, product.img)}>Add To Cart</button>
                                 <button className='buyNow-btn'>Buy Now</button>
                             </div>

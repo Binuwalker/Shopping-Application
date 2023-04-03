@@ -3,28 +3,28 @@
     {
       "id":"c1shoppydo20020516p1",
       "productName": "AOE 4",
-      "price": "$49.58",
+      "price": "49",
       "img": "/img/products/aoe-4.jpg",
       "detail": "Age of Empires IV is a real-time strategy video game developed by Relic Entertainment in partnership with World's Edge and published by Xbox Game Studios. It is the fourth installment of the Age of Empires series. The game was released October 28, 2021 for Windows. It is also scheduled to release for Xbox One and Xbox Series X/S in 2023."
   },
   {
       "id":"c1shoppydo20020516p2",
       "productName": "GTA 5",
-      "price": "$12.27",
+      "price": "12",
       "img": "/img/products/gta-5.jpg",
       "detail": "Grand Theft Auto V is a 2013 action-adventure game developed by Rockstar North and published by Rockstar Games. It is the seventh main entry in the Grand Theft Auto series, following 2008's Grand Theft Auto IV, and the fifteenth instalment overall. Set within the fictional state of San Andreas, based on Southern California."
   },
   {
       "id":"c1shoppydo20020516p3",
       "productName": "COD WW 2",
-      "price": "$8.40",
+      "price": "8",
       "img": "/img/products/cod-ww2.jpg",
       "detail": "Call of Duty: WWII is a 2017 first-person shooter game developed by Sledgehammer Games and published by Activision. It was released worldwide on November 3, 2017 for PlayStation 4, Windows and Xbox One. It is the fourteenth main installment in the Call of Duty series and the first title in the series to be set primarily during World War II since Call of Duty: World at War in 2008."
   },
   {
       "id":"c1shoppydo20020516p4",
       "productName": "NFS HEAT",
-      "price": "$20.99",
+      "price": "20",
       "img": "/img/products/nfs-heat.jpg",
       "detail": "Need for Speed Heat (stylised as NFS Heat) is a 2019 racing video game developed by Ghost Games and published by Electronic Arts for PlayStation 4, Windows, and Xbox One. It is the twenty-fourth instalment in the Need for Speed series and commemorates the series' 25th anniversary. "
   }
