@@ -1,29 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Nav, Navbar, Container } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { logoutSuccess } from '../../slices/loginSlice';
 import './Header.css';
 
 const TopNav = () => {
 
+    const [user, setUser] = useState();
     const { emailSuccess, passwordSuccess } = useSelector(state => state.loginState);
     const cartCount = JSON.parse(localStorage.getItem('cart-list')) || [];
 
     const navigate = useNavigate();
-    const dispatch = useDispatch();
 
-    let userValue = localStorage.getItem('userKey') || [];
+    useEffect(() => {
+     
+      const userValue = JSON.parse(localStorage.getItem("userKey")) || [];
+      setUser(userValue[0]);
+  
+    }, []);
 
-    const handleLogout = (e) => {
-        e.preventDefault()
-        dispatch(logoutSuccess());
-        navigate('/')
-        localStorage.removeItem('userKey')
-        if (emailSuccess && passwordSuccess) {
-            userValue = JSON.parse(userValue);
-        }
-        window.location.reload();
+    const handleProfile = (id) => {
+        navigate(`/user/${id}`)
     }
 
     return (
@@ -34,8 +31,9 @@ const TopNav = () => {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="ms-auto">
-                            {(emailSuccess && passwordSuccess) || userValue.length > 0 ? (<Link onClick={handleLogout} className='nav-link navLink'>Logout</Link>)
+                            {(emailSuccess && passwordSuccess) || user ? (null)
                                 : (<Link to='/' className='nav-link navLink'>Login</Link>)}
+                            {user ? <div to='/profile' className='nav-link navLink' onClick={() => handleProfile(user.id)}>{user.username}</div> : null}
                             <Link to='/cart' className='nav-link navLink'>Cart({cartCount.length ? cartCount.length : 0})</Link>
                         </Nav>
                     </Navbar.Collapse>

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
-import { BsFiletypePdf } from 'react-icons/bs'
 import '../../styles/ConfirmOrder.css';
 import { useNavigate } from 'react-router';
 import DownloadInvoice from '../pdf/DownloadInvoice';
@@ -57,7 +56,7 @@ const ConfirmOrder = () => {
                     </tr>
                 </thead>
                 {cartItems && cartItems.map((cartItem) => (
-                    <tbody>
+                    <tbody key={cartItem.id}>
                         <tr>
                             <td>{cartItem.productName}</td>
                             <td>${cartItem.price}</td>

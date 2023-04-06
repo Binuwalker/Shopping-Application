@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../styles/ShippingInfo.css';
 import { useNavigate } from 'react-router';
+import { Snackbar, Alert } from '@mui/material';
 
 const ShippingInfo = () => {
     const navigate = useNavigate()
+    const [alert, setAlert] = useState();
     const [shippingInfo, setShippingInfo] = useState({
         address: "",
         city: "",
@@ -22,7 +24,7 @@ const ShippingInfo = () => {
             !shippingInfo.country ||
             !shippingInfo.postalCode ||
             !shippingInfo.phone) {
-            alert("Pls fill all the details")
+            setAlert(true)
         } else navigate("/confirmorder")
     }
 
@@ -30,6 +32,14 @@ const ShippingInfo = () => {
         const { name, value } = e.target;
         setShippingInfo(prevState => ({ ...prevState, [name]: value }))
     }
+
+    useEffect(() => {
+        if(alert) {
+            setTimeout(() => {
+                setAlert(false)
+            }, 1500)
+        }
+    })
 
     return (
         <div>
@@ -89,6 +99,20 @@ const ShippingInfo = () => {
                     </form>
                 </div>
             </div>
+            <Snackbar
+                open={alert}
+                anchorOrigin={
+                    {
+                        horizontal: 'center',
+                        vertical: 'top'
+                    }
+                }
+                transitionDuration={1500}
+            >
+                <Alert severity='error' onClose={() => setAlert(false)}>
+                    Please Fill all the Details!
+                </Alert>
+            </Snackbar>
         </div>
     )
 }

@@ -11,6 +11,8 @@ import ProductDetails from "./components/pages/ProductDetails";
 import ShippingInfo from "./components/pages/ShippingInfo";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 import ConfirmOrder from "./components/pages/ConfirmOrder";
+import Signup from "./components/pages/Signup";
+import Profile from "./components/pages/Profile";
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
         <TopNav />
         <Routes>
           <Route path='/' element={<Login />} />
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/user/:id' element={<Profile />} />
           <Route path='/home' element={<Home />} />
           <Route path='/product/:id' element={<ProductDetails />} />
           <Route path='/cart' element={<Cart />} />

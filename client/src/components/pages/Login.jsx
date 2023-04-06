@@ -6,12 +6,13 @@ import { FaExclamationCircle } from 'react-icons/fa';
 import { AiFillCheckCircle } from 'react-icons/ai';
 import { login } from '../../actions/loginAction';
 import { loginEmailSuccess, loginPasswordSuccess } from '../../slices/loginSlice';
+import axios from 'axios';
 
 const Login = () => {
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [data, setData] = useState();
+  let data = [];
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -21,25 +22,49 @@ const Login = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(login({ email, password, userValue }))
-    setData({ email, password })
+    dispatch(login({ email, password }));
     if (emailSuccess && passwordSuccess) {
       userValue = JSON.parse(userValue);
       console.log(userValue);
     }
+    const asyncFunc = async () => {
+      await axios.get(`http://localhost:3001/users?email=` + email)
+        .then(response => {
+          const res = response.data[0]
+          data.push(res);
+          if (res === undefined) {
+            alert('User not found with this Id');
+          } else {
+            if (res.password === password) {
+              alert('Login Success');
+              localStorage.setItem('userKey', JSON.stringify(data))
+              navigate('/home');
+              window.location.reload();
+            } else if (password === undefined) {
+              alert('Enter a Password');
+            } else if (res.password === undefined) {
+              alert('Password Invalid');
+            } else if (password !== res.password) {
+              alert('Password Invalid');
+            }
+          }
+        }
+        )
+        .catch(err => {
+          console.log('Login failed due to ' + err);
+          alert('Login failed due to ' + err)
+        })
+    }
+    asyncFunc();
   }
 
   useEffect(() => {
-    if (emailSuccess && passwordSuccess) {
-      navigate('/home')
-      localStorage.setItem('userKey', JSON.stringify(data))
-    }
     if (userValue) {
       dispatch(loginEmailSuccess());
       dispatch(loginPasswordSuccess());
     }
 
-  }, [emailSuccess, passwordSuccess, navigate, data, dispatch, userValue])
+  }, [emailSuccess, passwordSuccess, navigate, dispatch, userValue])
 
   return (
     <div className='login'>
@@ -80,6 +105,7 @@ const Login = () => {
                 </div>
               </div>
               <button className='login-btn'>Login</button>
+              <div onClick={() => navigate('/signup')}>Don't have an account</div>
             </div>
           </form>
         </div>
