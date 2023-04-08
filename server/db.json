@@ -35,6 +35,7 @@
       "email": "sam@mail.com",
       "phoneNumber": "9384109664",
       "password": "Sam@1605",
+      "img": "/img/users/profile-2.jpg",
       "id": 1
     },
     {
@@ -42,6 +43,7 @@
       "email": "binu@mail.com",
       "phoneNumber": "98689589578",
       "password": "saal",
+      "img": "/img/users/profile-empty.jpg",
       "id": 2
     }
   ]

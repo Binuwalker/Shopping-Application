@@ -91,7 +91,7 @@ const Invoice = () => {
                     <div className='invoice-title'>Invoice</div>
                     <hr />
                     <div style={{ fontWeight: 680, fontSize: '15px' }} className='mt-4'>Shipping Details:</div>
-                    <div style={{ fontSize: '13px' }} className='mt-2'><span style={{ fontWeight: 680 }}>Shipping Address: </span>{shippingInfo.address}, {shippingInfo.city}, {shippingInfo.state}, {shippingInfo.country} - {shippingInfo.postalCode}</div>
+                    <div style={{ fontSize: '13px' }} className='mt-2'><span style={{ fontWeight: 680 }}>Shipping Address: </span>{shippingInfo.street}, {shippingInfo.city}, {shippingInfo.state}, {shippingInfo.country} - {shippingInfo.postalCode}</div>
                     <div style={{ fontSize: '13px' }}><span style={{ fontWeight: 680 }}>Contact Number: </span>{shippingInfo.phone}</div>
                     <hr />
                     <div style={{ fontWeight: 680, fontSize: '15px' }}>Ordered Items are:</div>

@@ -9,10 +9,10 @@ import Cart from "./components/pages/Cart";
 import Error from "./components/error/Error";
 import ProductDetails from "./components/pages/ProductDetails";
 import ShippingInfo from "./components/pages/ShippingInfo";
-import ProtectedRoute from "./components/routes/ProtectedRoute";
 import ConfirmOrder from "./components/pages/ConfirmOrder";
 import Signup from "./components/pages/Signup";
 import Profile from "./components/pages/Profile";
+import Address from "./components/pages/Address";
 
 function App() {
   return (
@@ -26,8 +26,9 @@ function App() {
           <Route path='/home' element={<Home />} />
           <Route path='/product/:id' element={<ProductDetails />} />
           <Route path='/cart' element={<Cart />} />
-          <Route path='/shippinginfo' element={<ProtectedRoute><ShippingInfo /></ProtectedRoute>} />
-          <Route path='/confirmorder' element={<ProtectedRoute><ConfirmOrder /></ProtectedRoute>} />
+          <Route path="/address" element={<Address />} />
+          <Route path='/shippinginfo' element={<ShippingInfo />} />
+          <Route path='/confirmorder' element={<ConfirmOrder />} />
           <Route path='*' element={<Error />} />
         </Routes>
         <Footer />

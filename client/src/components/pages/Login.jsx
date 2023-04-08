@@ -7,8 +7,14 @@ import { AiFillCheckCircle } from 'react-icons/ai';
 import { login } from '../../actions/loginAction';
 import { loginEmailSuccess, loginPasswordSuccess } from '../../slices/loginSlice';
 import axios from 'axios';
+import { Alert, Snackbar } from '@mui/material';
 
 const Login = () => {
+
+  const [error, setError] = useState();
+  const [success, setSuccess] = useState();
+  const [errorMsg, setErrorMsg] = useState();
+  const [successMsg, setSuccessMsg] = useState();
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -33,26 +39,37 @@ const Login = () => {
           const res = response.data[0]
           data.push(res);
           if (res === undefined) {
-            alert('User not found with this Id');
+            setError(true)
+            setSuccess(false)
+            setErrorMsg('User not found with this Id');
           } else {
             if (res.password === password) {
-              alert('Login Success');
+              setSuccess(true)
+              setSuccessMsg('Login Success');
               localStorage.setItem('userKey', JSON.stringify(data))
               navigate('/home');
               window.location.reload();
             } else if (password === undefined) {
-              alert('Enter a Password');
+              setError(true)
+              setSuccess(false)
+              setErrorMsg('Enter a Password');
             } else if (res.password === undefined) {
-              alert('Password Invalid');
+              setError(true)
+              setSuccess(false)
+              setErrorMsg('Invalid Password');
             } else if (password !== res.password) {
-              alert('Password Invalid');
+              setError(true)
+              setSuccess(false)
+              setErrorMsg('Invalid Password');
             }
           }
         }
         )
         .catch(err => {
           console.log('Login failed due to ' + err);
-          alert('Login failed due to ' + err)
+          setError(true)
+          setSuccess(false)
+          setErrorMsg('Login failed due to ' + err);
         })
     }
     asyncFunc();
@@ -65,6 +82,19 @@ const Login = () => {
     }
 
   }, [emailSuccess, passwordSuccess, navigate, dispatch, userValue])
+
+  useEffect(() => {
+    if (error) {
+      setTimeout(() => {
+        setError(false)
+      }, 1500)
+    }
+    if (success) {
+      setTimeout(() => {
+        setSuccess(false)
+      }, 1500)
+    }
+  }, [error, success])
 
   return (
     <div className='login'>
@@ -109,6 +139,38 @@ const Login = () => {
             </div>
           </form>
         </div>
+        {error &&
+          <Snackbar
+            open={error}
+            anchorOrigin={
+              {
+                horizontal: 'center',
+                vertical: 'top'
+              }
+            }
+            transitionDuration={1500}
+          >
+            <Alert severity='error' onClose={() => setError(false)}>
+              {errorMsg}
+            </Alert>
+          </Snackbar>
+        }
+        {success &&
+          <Snackbar
+            open={success}
+            anchorOrigin={
+              {
+                horizontal: 'center',
+                vertical: 'top'
+              }
+            }
+            transitionDuration={1500}
+          >
+            <Alert severity='success' onClose={() => setSuccess(false)}>
+              {successMsg}
+            </Alert>
+          </Snackbar>
+        }
       </div>
     </div>
   )

@@ -13,10 +13,10 @@ const TopNav = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-     
-      const userValue = JSON.parse(localStorage.getItem("userKey")) || [];
-      setUser(userValue[0]);
-  
+
+        const userValue = JSON.parse(localStorage.getItem("userKey")) || [];
+        setUser(userValue[0]);
+
     }, []);
 
     const handleProfile = (id) => {
@@ -24,22 +24,29 @@ const TopNav = () => {
     }
 
     return (
-        <div className='navbar-bg'>
-            <Navbar expand="lg" className='navBg'>
-                <Container>
-                    <Link to='/home' className='nav-link nav-Brand'>ShoppyDo</Link>
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="ms-auto">
-                            {(emailSuccess && passwordSuccess) || user ? (null)
-                                : (<Link to='/' className='nav-link navLink'>Login</Link>)}
-                            {user ? <div to='/profile' className='nav-link navLink' onClick={() => handleProfile(user.id)}>{user.username}</div> : null}
-                            <Link to='/cart' className='nav-link navLink'>Cart({cartCount.length ? cartCount.length : 0})</Link>
-                        </Nav>
-                    </Navbar.Collapse>
-                </Container>
-            </Navbar>
-        </div >
+        <>
+        {(emailSuccess && passwordSuccess) || user ? (
+            <div className='navbar-bg'>
+                <Navbar expand="lg" className='navBg'>
+                    <Container>
+                        <Link to='/home' className='nav-link nav-Brand'>ShoppyDo</Link>
+                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                        <Navbar.Collapse id="basic-navbar-nav">
+                            <Nav className="ms-auto">
+                                {(emailSuccess && passwordSuccess) || user ? (null)
+                                    : (<Link to='/' className='nav-link navLink'>Login</Link>)}
+                                {user ? <div to='/profile' className='nav-link navLink' onClick={() => handleProfile(user.id)}>{user.username}</div> : null}
+                                <Link to='/cart' className='nav-link navLink'>Cart({cartCount.length ? cartCount.length : 0})</Link>
+                            </Nav>
+                        </Navbar.Collapse>
+                    </Container>
+                </Navbar>
+            </div >
+        ) : (
+            null
+        )}
+
+        </>
     )
 }
 

@@ -42,7 +42,7 @@ const Home = () => {
                 setAlert(false)
             }, 1500)
         }
-    })
+    }, [alert])
 
     useEffect(() => {
         const asyncFunc = async () => {
